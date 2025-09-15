@@ -41,7 +41,7 @@ This project provides an **engaging survey experience** where:
 <img width="1655" height="898" alt="Screenshot 2025-09-15 164607" src="https://github.com/user-attachments/assets/1d5d1a6d-7943-4594-8b1e-46e6a85147bc" />
 
 [Survey Responses]
-<img width="1916" height="897" alt="Screenshot 2025-09-15 164732" src="https://github.com/user-attachments/assets/04933622-70bf-4000-8b8a-cf700189b30d" />
+<img width="1913" height="897" alt="Screenshot 2025-09-15 175843" src="https://github.com/user-attachments/assets/ee7e9f12-f7df-49e2-8a40-46f6bc5c5740" />
 
 ---
 
