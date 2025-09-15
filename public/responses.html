@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Responses</title>
+    <style>
+        /* --- Styles for Responses Page --- */
+.responses-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.responses-table th,
+.responses-table td {
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.responses-table th {
+    background-color: #6a5acd; /* Same as button color */
+    color: #fff;
+    font-weight: 600;
+}
+
+.responses-table tbody tr:nth-child(even) {
+    background-color: #f8f7ff;
+}
+
+.responses-table tbody tr:hover {
+    background-color: #ece9ff;
+}
+
+.responses-table td pre {
+    white-space: pre-wrap; /* Allows answers to wrap */
+    word-break: break-word;
+    margin: 0;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+#loadingMessage {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+    </style>
+</head>
+<body>
+    <div class="survey-container">
+        <div class="header">
+            <h1>📊 Survey Responses</h1>
+            <p>Here are all the submissions received.</p>
+        </div>
+
+        <div id="loadingMessage">Loading responses...</div>
+
+        <table class="responses-table">
+            <thead>
+                <tr>
+                    <th>Submission Date</th>
+                    <th>Score</th>
+                    <th>Answers</th>
+                </tr>
+            </thead>
+            <tbody id="responsesBody">
+                </tbody>
+        </table>
+        
+        <button><a href="/" class="btn btn-secondary" style="margin-top: 30px; text-decoration: none; padding: 10px; margin: 10px; color: black;">Back to Survey</a></button>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+    const responsesBody = document.getElementById('responsesBody');
+    const loadingMessage = document.getElementById('loadingMessage');
+
+    // Function to fetch and display responses
+    const loadResponses = async () => {
+        try {
+            // Fetch data from the GET /api/responses endpoint
+            const response = await fetch('/api/responses');
+            if (!response.ok) {
+                throw new Error('Failed to fetch data from the server.');
+            }
+            const responses = await response.json();
+
+            // Hide the loading message
+            loadingMessage.style.display = 'none';
+
+            if (responses.length === 0) {
+                responsesBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No responses submitted yet.</td></tr>';
+                return;
+            }
+
+            // Clear any existing content
+            responsesBody.innerHTML = '';
+
+            // Iterate over each response and create a table row
+            responses.forEach(res => {
+                const row = document.createElement('tr');
+
+                // 1. Format the submission date
+                const dateCell = document.createElement('td');
+                const submittedDate = new Date(res.submittedAt).toLocaleString();
+                dateCell.textContent = submittedDate;
+
+                // 2. Add the score
+                const scoreCell = document.createElement('td');
+                scoreCell.textContent = res.score;
+                scoreCell.style.fontWeight = 'bold';
+                scoreCell.style.textAlign = 'center';
+
+                // 3. Format and display the answers object
+                const answersCell = document.createElement('td');
+                let answersHtml = '';
+                for (const [question, answer] of Object.entries(res.answers)) {
+                    // Use <br> for line breaks, which works with innerHTML
+                    answersHtml += `<strong>Q${question}:</strong> ${answer}<br>`;
+                }
+                
+                // Set the innerHTML of the cell directly. This tells the browser
+                // to render the string as HTML elements.
+                answersCell.innerHTML = answersHtml;
+                
+                // Add all cells to the row
+                row.appendChild(dateCell);
+                row.appendChild(scoreCell);
+                row.appendChild(answersCell);
+
+                // Add the row to the table body
+                responsesBody.appendChild(row);
+            });
+
+        } catch (error) {
+            loadingMessage.textContent = 'Error: Could not load responses.';
+            console.error('Error loading responses:', error);
+        }
+    };
+
+    // Initial load
+    loadResponses();sss
+});
+    </script>
+</body>
+</html>

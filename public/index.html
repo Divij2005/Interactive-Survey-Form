@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Survey Experience</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="survey-container">
+        <div class="progress-bar" id="progressBar"></div>
+        
+        <div class="header">
+            <div class="question-counter">
+                <span id="currentQuestion">1</span> / <span id="totalQuestions">6</span>
+            </div>
+            <h1>Interactive Survey Experience</h1>
+            <p>Answer questions and earn points!</p>
+            <div class="score-display">Score: <span id="score">0</span> points</div>
+        </div>
+
+        <div class="question-container">
+            <!-- Question 1: Multiple Choice -->
+            <div class="question active" data-question="1">
+                <h2>What's your favorite way to spend a weekend?</h2>
+                <div class="option" data-value="outdoor" data-points="10">
+                    🏞️ Outdoor adventures and nature activities
+                </div>
+                <div class="option" data-value="indoor" data-points="8">
+                    🏠 Cozy indoor activities like reading or gaming
+                </div>
+                <div class="option" data-value="social" data-points="12">
+                    🎉 Socializing with friends and family
+                </div>
+                <div class="option" data-value="creative" data-points="15">
+                    🎨 Creative projects and artistic pursuits
+                </div>
+            </div>
+
+            <!-- Question 2: Emoji Rating -->
+            <div class="question" data-question="2">
+                <h2>How do you feel about trying new technologies?</h2>
+                <div class="emoji-options">
+                    <div class="emoji-option" data-value="excited" data-points="20">🤩</div>
+                    <div class="emoji-option" data-value="interested" data-points="15">😊</div>
+                    <div class="emoji-option" data-value="neutral" data-points="10">😐</div>
+                    <div class="emoji-option" data-value="hesitant" data-points="8">😬</div>
+                    <div class="emoji-option" data-value="resistant" data-points="5">😰</div>
+                </div>
+                <p style="text-align: center; margin-top: 20px; color: #666;">Click an emoji that represents your feelings</p>
+            </div>
+
+            <!-- Question 3: Slider -->
+            <div class="question" data-question="3">
+                <h2>On a scale of 1-10, how important is work-life balance to you?</h2>
+                <div class="slider-container">
+                    <input type="range" min="1" max="10" value="5" class="slider" id="balanceSlider">
+                    <div class="slider-value" id="sliderValue">5</div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; color: #666;">
+                        <span>Not Important</span>
+                        <span>Extremely Important</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4: Multiple Choice -->
+            <div class="question" data-question="4">
+                <h2>Which skill would you most like to develop?</h2>
+                <div class="option" data-value="leadership" data-points="18">
+                    👥 Leadership and management skills
+                </div>
+                <div class="option" data-value="technical" data-points="16">
+                    💻 Technical and programming skills
+                </div>
+                <div class="option" data-value="creative" data-points="14">
+                    🎭 Creative and artistic abilities
+                </div>
+                <div class="option" data-value="communication" data-points="20">
+                    🗣️ Communication and public speaking
+                </div>
+            </div>
+
+            <!-- Question 5: Emoji Rating -->
+            <div class="question" data-question="5">
+                <h2>How do you typically handle stress?</h2>
+                <div class="emoji-options">
+                    <div class="emoji-option" data-value="exercise" data-points="18">💪</div>
+                    <div class="emoji-option" data-value="meditate" data-points="20">🧘</div>
+                    <div class="emoji-option" data-value="social" data-points="15">👥</div>
+                    <div class="emoji-option" data-value="music" data-points="12">🎵</div>
+                    <div class="emoji-option" data-value="food" data-points="8">🍕</div>
+                </div>
+                <p style="text-align: center; margin-top: 20px; color: #666;">Choose your go-to stress relief method</p>
+            </div>
+
+            <!-- Question 6: Slider -->
+            <div class="question" data-question="6">
+                <h2>How satisfied are you with your current daily routine?</h2>
+                <div class="slider-container">
+                    <input type="range" min="1" max="10" value="5" class="slider" id="satisfactionSlider">
+                    <div class="slider-value" id="satisfactionValue">5</div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; color: #666;">
+                        <span>Very Unsatisfied</span>
+                        <span>Completely Satisfied</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completion Screen -->
+            <div class="completion-screen" id="completionScreen">
+                <div class="celebration">🎉</div>
+                <h2>Survey Complete!</h2>
+                <div class="final-score">Final Score: <span id="finalScore">0</span> points</div>
+                <p id="personalizedMessage">Thank you for participating in our interactive survey!</p>
+                <button class="btn btn-primary" onclick="restartSurvey()" style="margin-top: 30px;">
+                    Take Survey Again
+                </button>
+            </div>
+        </div>
+
+        <div class="navigation" id="navigation">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Next</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
